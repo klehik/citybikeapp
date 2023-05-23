@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 
 const tripSchema = mongoose.Schema({
-  departureDate: { type: Date, required: true },
-  returnDate: { type: Date, required: true },
+  departureDate: { type: String, required: true },
+  returnDate: { type: String, required: true },
   departureStation: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: 'Station',
     required: true,
   },
   returnStation: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: 'Station',
     required: true,
   },
@@ -17,7 +17,7 @@ const tripSchema = mongoose.Schema({
   returnStationID: { type: Number, required: true },
   departureStationName: { type: String, required: true },
   returnStationName: { type: String, required: true }, */
-  coveredDistance: { type: String, required: true }, // meters
+  coveredDistance: { type: Number, required: true }, // meters
   duration: { type: Number, required: true }, // seconds
 })
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const stationSchema = mongoose.Schema({
-  ID: { type: Number, required: true },
+  stationID: { type: Number, required: true },
   name: {
     fin: String,
     swe: String,
