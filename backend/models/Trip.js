@@ -1,13 +1,28 @@
 const mongoose = require('mongoose')
-const stationSchema = require('./stationSchema')
 
 const tripSchema = mongoose.Schema({
-  departureDate: { type: String, required: true },
-  returnDate: { type: String, required: true },
-  departureStation: stationSchema,
-  returnStation: stationSchema,
-  coveredDistance: { type: Number, required: true }, // meters
-  duration: { type: Number, required: true }, // seconds
+  departureDate: { type: Date, required: true },
+  returnDate: { type: Date, required: true },
+  departureStation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Station',
+    required: true,
+  },
+  returnStation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Station',
+    required: true,
+  },
+  coveredDistance: {
+    type: Number,
+    required: true,
+    min: [10, 'distance less than 10 meters not accepted'],
+  }, // meters
+  duration: {
+    type: Number,
+    required: true,
+    min: [10, 'trip duration less than 10 seconds not accepted'],
+  }, // seconds
 })
 
 tripSchema.set('toJSON', {

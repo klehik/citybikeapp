@@ -15,9 +15,9 @@ const connectMongoDB = require('./db/connectMongoDB')
 connectMongoDB(config.MONGODB_URI)
 
 const getStation = async (stationID) => {
-  const station = await Station.findOne({ id: stationID })
+  const station = await Station.findOne({ stationID: stationID })
 
-  return station
+  return station._id
 }
 
 const loadStations = async (filename) => {
@@ -31,30 +31,29 @@ const loadStations = async (filename) => {
     })
   )
   for await (const item of parser) {
-    try {
-      // station object
-      const station = {
-        id: item[1],
-        name: { fin: item[2], swe: item[3] },
-        address: { fin: item[5], swe: item[6] },
-        city: { fin: item[7], swe: item[8] },
-        operator: item[9],
-        capacity: item[10],
-        coordinates: { x: item[11], y: item[12] },
-      }
-
-      stations.push(station)
-    } catch (err) {
-      console.log(err)
+    // station object
+    const station = {
+      stationID: item[1],
+      name: { fin: item[2], swe: item[3] },
+      address: { fin: item[5], swe: item[6] },
+      city: { fin: item[7], swe: item[8] },
+      operator: item[9],
+      capacity: item[10],
+      coordinates: { x: item[11], y: item[12] },
     }
+    stations.push(station)
+    // with {ordered: false} insertMany does not cause error when validation error occurs
   }
-  await Station.insertMany(stations)
+  const inserted = await Station.insertMany(stations, { ordered: false })
+
+  console.log(`inserted ${inserted.length} documents out of ${stations.length}`)
 }
 
 const loadTrips = async (filename) => {
   await Trip.deleteMany({})
   // TODO: validate and filter duration < 10s & coverDistance < 10m
-  trips = []
+  const trips = []
+  let validationErrorCount = 0
   const parser = fs.createReadStream(filename).pipe(
     parse({
       delimiter: ',',
@@ -62,25 +61,26 @@ const loadTrips = async (filename) => {
     })
   )
   for await (const item of parser) {
-    try {
-      // trip object
-
-      const trip = {
-        departureDate: String(item[0]),
-        returnDate: String(item[1]),
-        departureStation: await getStation(Number(item[2])),
-        returnStation: await getStation(Number(item[4])),
-        coveredDistance: Number(item[6]),
-        duration: Number(item[7]),
-      }
-      if (item[2] !== undefined || item[4] !== undefined) {
-        trips.push(trip)
-      }
-    } catch (err) {
-      console.log(err)
+    // trip object
+    const trip = {
+      departureDate: String(item[0]),
+      returnDate: String(item[1]),
+      departureStation: await getStation(Number(item[2])),
+      returnStation: await getStation(Number(item[4])),
+      coveredDistance: Number(item[6]),
+      duration: Number(item[7]),
     }
+    trips.push(trip)
   }
-  await Trip.insertMany(trips)
+  // with {ordered: false} insertMany does not cause error when validation error occurs
+  const inserted = await Trip.insertMany(trips, { ordered: false })
+
+  console.log(`inserted ${inserted.length} documents out of ${trips.length}`)
 }
-//loadStations(folder_path + stationFile)
-loadTrips(folder_path + 'sample.csv')
+
+const loadData = async () => {
+  await loadStations(folder_path + stationFile)
+  loadTrips(folder_path + 'sample.csv')
+}
+
+loadData()
