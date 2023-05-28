@@ -1,11 +1,12 @@
 require('dotenv').config()
 
-const PORT = process.env.PORT
-const MONGODB_URI = process.env.MONGODB_URI
-const DATA_FOLDER_PATH = process.env.DATA_FOLDER_PATH
+const PORT = process.env.PORT || 5001
+const ENV = process.env.ENV
+const MONGO_URI =
+  ENV === 'docker' ? process.env.MONGO_DOCKER : process.env.MONGO_LOCAL
 
 module.exports = {
   PORT,
-  MONGODB_URI,
-  DATA_FOLDER_PATH,
+
+  MONGO_URI,
 }

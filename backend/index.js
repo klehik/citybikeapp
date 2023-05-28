@@ -1,8 +1,10 @@
 const config = require('./utils/config')
 const app = require('./app')
 const connectMongoDB = require('./db/connectMongoDB')
+const Trip = require('./models/Trip')
+const Station = require('./models/Station')
 
-connectMongoDB(config.MONGODB_URI)
+connectMongoDB(config.MONGO_URI)
 
 const port = config.PORT || 5001
 
