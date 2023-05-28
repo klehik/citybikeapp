@@ -10,7 +10,7 @@ const stationSchema = mongoose.Schema({
     swe: String,
   },
   city: {
-    fin: String,
+    fin: { type: String, required: true },
     swe: String,
   },
   operator: String,
