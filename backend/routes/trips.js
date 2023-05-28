@@ -3,8 +3,17 @@ const router = express.Router()
 const Trip = require('../models/Trip')
 
 router.get('/', async (req, res) => {
+  const page = parseInt(req.query.page)
+  const limit = parseInt(req.query.limit)
+  const count = await Trip.collection.estimatedDocumentCount({})
+  const pageCount = Math.ceil(count / limit)
+
   const trips = await Trip.find({})
-  res.status(200).json(trips)
+
+    .skip(limit * page)
+    .limit(limit)
+
+  res.status(200).json({ data: trips, hasMore: page < pageCount })
 })
 
 router.get('/:id', async (req, res) => {
