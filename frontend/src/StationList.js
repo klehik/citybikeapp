@@ -26,7 +26,7 @@ const StationList = ({ stations, handleClick }) => {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Address</TableCell>
-              <TableCell>City</TableCell>
+
               <TableCell>Capacity</TableCell>
             </TableRow>
           </TableHead>
@@ -37,9 +37,8 @@ const StationList = ({ stations, handleClick }) => {
                 key={station.id}
                 sx={boxSX}
               >
-                <TableCell>{station.name.fin}</TableCell>
+                <TableCell>{station.name.en}</TableCell>
                 <TableCell>{station.address.fin} </TableCell>
-                <TableCell>{station.city.fin}</TableCell>
                 <TableCell>{station.capacity}</TableCell>
               </TableRow>
             ))}

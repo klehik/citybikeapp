@@ -12,10 +12,11 @@ const Stations = () => {
   const [hasMorePages, setHasMorePages] = useState(true)
   const [pages, setPages] = useState(null)
   const [selectedStation, setSelectedStation] = useState(null)
+  const [search, setSearch] = useState('')
 
-  const getStations = async (page) => {
+  const getStations = async (page, search) => {
     const response = await axios.get('/stations', {
-      params: { page: page, limit: 18 },
+      params: { page: page, limit: 18, search: search },
     })
 
     setStations(response.data.data)
@@ -24,8 +25,8 @@ const Stations = () => {
   }
 
   useEffect(() => {
-    getStations(page)
-  }, [page])
+    getStations(page, search)
+  }, [page, search])
 
   const handleNextPage = () => {
     if (hasMorePages) {
@@ -56,7 +57,13 @@ const Stations = () => {
             <Typography>
               {page}/{pages}
             </Typography>
+
             <Button onClick={handleNextPage}>next</Button>
+            <TextField
+              size="small"
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search stations"
+            ></TextField>
           </Grid>
         </Grid>
         <StationList

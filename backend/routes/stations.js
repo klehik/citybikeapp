@@ -7,11 +7,20 @@ router.get('/', async (req, res) => {
   // get paginated stations
   const limit = Number(req.query.limit)
   const page = Number(req.query.page)
-  const count = await Station.countDocuments({})
+  const search = req.query.search
+
+  const searchObject = {
+    $or: [
+      { 'address.fin': { $regex: search, $options: 'i' } },
+      { 'name.en': { $regex: search, $options: 'i' } },
+    ],
+  }
+
+  const count = await Station.countDocuments(searchObject)
   const pageCount = Math.ceil(count / limit)
   console.log(page, pageCount)
 
-  const stations = await Station.find({})
+  const stations = await Station.find(searchObject)
     .limit(limit)
     .skip(limit * (page - 1))
 
