@@ -1,0 +1,19 @@
+version: '3'
+services:
+  backend:
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/citybikeapp
+    build: .
+    ports:
+      - '5001:5001'
+
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./data/db:/data/db
+    depends_on:
+      - backend
+    # disable logs
+    command: mongod --quiet --logpath /tmp/mongo.log

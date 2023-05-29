@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+const initDB = require('../initdb')
 
-mongoose.set('debug', true)
+mongoose.set('debug', false)
 
 const connectMongoDB = (url) => {
   return mongoose
@@ -10,6 +11,7 @@ const connectMongoDB = (url) => {
     })
     .then(() => {
       console.log('Connected to Database')
+      initDB()
     })
     .catch((err) => console.log(err))
 }
