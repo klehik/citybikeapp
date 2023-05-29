@@ -1,38 +1,35 @@
 const { parse } = require('csv-parse')
-
+const fs = require('fs')
 const Station = require('./models/Station')
 const Trip = require('./models/Trip')
 
-const fs = require('fs')
-const connectMongoDB = require('./db/connectMongoDB')
-const { MONGO_URI } = require('./utils/config')
-
-const stationsCSV =
-  './csv/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
-
-const filenames = [
-  './csv/2021-05.csv',
-  './csv/2021-06.csv',
-  './csv/2021-07.csv',
-]
-
 const initDB = async () => {
-  await connectMongoDB(MONGO_URI)
+  // csv data
+  const stationsCSV =
+    './db/csv/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
+  const filenames = [
+    './db/csv/2021-05.csv',
+    './db/csv/2021-06.csv',
+    './db/csv/2021-07.csv',
+  ]
+  // import data if db does not exist or empty
+  const station_count = await Station.collection.countDocuments()
 
-  console.log('Emptying db')
-  await Station.deleteMany({})
-  //await Trip.deleteMany({})
+  if (!station_count || station_count === 0) {
+    console.log('importing stations')
+    await importStations()
+  }
+  const trip_count = await Trip.collection.countDocuments()
 
-  await importStations()
-
-  /* for (const file of filenames) {
-    await importTrips(file)
-  } */
+  if (!trip_count || trip_count === 0) {
+    console.log('importing trips')
+    for (const file of filenames) {
+      await importTrips(file)
+    }
+  }
 }
 
 const importStations = async () => {
-  // drop collection
-
   const stations = []
 
   console.log('Parsing CSV file:', stationsCSV)
@@ -118,4 +115,4 @@ const importTrips = async (file) => {
   }
 }
 
-initDB()
+module.exports = initDB
