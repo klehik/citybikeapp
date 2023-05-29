@@ -5,8 +5,7 @@ const Trip = require('./models/Trip')
 
 const initDB = async () => {
   // csv data
-  const stationsCSV =
-    './db/csv/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
+
   const filenames = [
     './db/csv/2021-05.csv',
     './db/csv/2021-06.csv',
@@ -30,6 +29,8 @@ const initDB = async () => {
 }
 
 const importStations = async () => {
+  const stationsCSV =
+    './db/csv/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
   const stations = []
 
   console.log('Parsing CSV file:', stationsCSV)
