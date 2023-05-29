@@ -3,13 +3,14 @@ import StationList from './StationList'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from '@mui/material/Button'
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, TextField, Typography } from '@mui/material'
 import Map from './Map'
 
 const Stations = () => {
   const [stations, setStations] = useState([])
   const [page, setPage] = useState(1)
   const [hasMorePages, setHasMorePages] = useState(true)
+  const [pages, setPages] = useState(null)
   const [selectedStation, setSelectedStation] = useState(null)
 
   const getStations = async (page) => {
@@ -19,6 +20,7 @@ const Stations = () => {
 
     setStations(response.data.data)
     setHasMorePages(response.data.hasMore)
+    setPages(response.data.pageCount)
   }
 
   useEffect(() => {
@@ -51,7 +53,9 @@ const Stations = () => {
             justifyContent="center"
           >
             <Button onClick={handlePreviousPage}>previous</Button>
-            <Typography>{page}</Typography>
+            <Typography>
+              {page}/{pages}
+            </Typography>
             <Button onClick={handleNextPage}>next</Button>
           </Grid>
         </Grid>

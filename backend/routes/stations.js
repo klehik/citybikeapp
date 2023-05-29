@@ -5,16 +5,19 @@ const Trip = require('../models/Trip')
 
 router.get('/', async (req, res) => {
   // get paginated stations
-  const limit = req.query.limit
-  const page = req.query.page
+  const limit = Number(req.query.limit)
+  const page = Number(req.query.page)
   const count = await Station.countDocuments({})
   const pageCount = Math.ceil(count / limit)
+  console.log(page, pageCount)
 
   const stations = await Station.find({})
     .limit(limit)
-    .skip(limit * page)
+    .skip(limit * (page - 1))
 
-  res.status(200).json({ data: stations, hasMore: page < pageCount - 1 })
+  res
+    .status(200)
+    .json({ data: stations, hasMore: page < pageCount, pageCount: pageCount })
 })
 
 router.get('/trips', async (req, res) => {
