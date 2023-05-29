@@ -9,11 +9,10 @@ router.get('/', async (req, res) => {
   const pageCount = Math.ceil(count / limit)
 
   const trips = await Trip.find({})
-
     .skip(limit * page)
     .limit(limit)
 
-  res.status(200).json({ data: trips, hasMore: page < pageCount })
+  res.status(200).json({ data: trips, hasMore: page < pageCount - 1 })
 })
 
 router.get('/:id', async (req, res) => {
