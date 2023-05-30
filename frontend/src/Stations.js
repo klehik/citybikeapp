@@ -3,7 +3,7 @@ import StationList from './StationList'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from '@mui/material/Button'
-import { Box, Container, Grid, TextField, Typography } from '@mui/material'
+import { Grid, TextField, Typography } from '@mui/material'
 import Map from './Map'
 
 const Stations = () => {
@@ -27,6 +27,11 @@ const Stations = () => {
   useEffect(() => {
     getStations(page, search)
   }, [page, search])
+
+  useEffect(() => {
+    setPage(1)
+    getStations(page, search)
+  }, [search])
 
   const handleNextPage = () => {
     if (hasMorePages) {
@@ -57,7 +62,6 @@ const Stations = () => {
             <Typography>
               {page}/{pages}
             </Typography>
-
             <Button onClick={handleNextPage}>next</Button>
             <TextField
               size="small"

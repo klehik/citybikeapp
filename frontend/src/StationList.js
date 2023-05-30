@@ -5,7 +5,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { Container, Typography } from '@mui/material'
+import { Container } from '@mui/material'
 
 const StationList = ({ stations, handleClick }) => {
   console.log(stations)

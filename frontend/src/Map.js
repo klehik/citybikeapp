@@ -4,9 +4,10 @@ import {
   useLoadScript,
   InfoWindow,
 } from '@react-google-maps/api'
-import { useEffect, useMemo, useState } from 'react'
-import { Box, Container } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { Box } from '@mui/material'
 import axios from 'axios'
+
 const Map = ({ station }) => {
   const [infoWindowOpen, setInfoWindowOpen] = useState(false)
   const { isLoaded } = useLoadScript({

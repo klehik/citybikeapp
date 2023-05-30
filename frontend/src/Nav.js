@@ -1,5 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 const Nav = () => {
@@ -7,7 +6,7 @@ const Nav = () => {
 
   return (
     <Box sx={{ width: 1, height: '20%' }}>
-      <Typography variant="h5">Citybike Database</Typography>
+      <Typography variant="h5">Citybike Database - Summer 2021</Typography>
 
       <Box>
         <Button onClick={() => navigate('/stations')}>Stations</Button>
