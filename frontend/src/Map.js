@@ -10,7 +10,7 @@ import axios from 'axios'
 const Map = ({ station }) => {
   const [infoWindowOpen, setInfoWindowOpen] = useState(false)
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   })
 
   const [tripsStarted, setTripsStarted] = useState(null)
