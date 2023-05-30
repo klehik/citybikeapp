@@ -93,8 +93,8 @@ const importTrips = async (file) => {
     ) {
       // trip object
       const trip = {
-        departureDate: item[0],
-        returnDate: item[1],
+        departureDate: new Date(item[0]),
+        returnDate: new Date(item[1]),
         departureStationID: departureStationID,
         departureStationName: item[3],
         returnStationID: returnStationID,

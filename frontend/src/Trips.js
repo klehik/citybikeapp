@@ -80,7 +80,9 @@ const Trips = () => {
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell onClick={() => handleSort('date')}>Date</TableCell>
+              <TableCell onClick={() => handleSort('departureDate')}>
+                Date
+              </TableCell>
               <TableCell onClick={() => handleSort('duration')}>
                 Duration
               </TableCell>
