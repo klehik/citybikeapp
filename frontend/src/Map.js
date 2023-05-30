@@ -10,7 +10,7 @@ import axios from 'axios'
 const Map = ({ station }) => {
   const [infoWindowOpen, setInfoWindowOpen] = useState(false)
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: '***REMOVED***',
+    googleMapsApiKey: process.env.MAPS_API_KEY,
   })
 
   const [tripsStarted, setTripsStarted] = useState(null)
@@ -34,8 +34,8 @@ const Map = ({ station }) => {
 
   useEffect(() => {
     setInfoWindowOpen(false)
-    setTripsEnded(false)
-    setTripsStarted(false)
+    setTripsEnded(null)
+    setTripsStarted(null)
     getTrips(station)
   }, [station])
 
