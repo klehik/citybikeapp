@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const initDB = require('../initDB')
+const initDB = require('../initdb')
 
 mongoose.set('debug', false)
 
