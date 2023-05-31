@@ -19,6 +19,14 @@ Repository for Solita Dev Academy pre-assignment. The task was to create a UI an
 - MongoDB
 - Docker
 
+## TODO
+
+- Tests
+- Filter journeys
+- Create intresting data insights
+- Optimize API performance when exploring journeys for better user experience - One thing that comes to mind is prefetching pages
+- Automatically download csv files when setting up database
+
 ## Screenshots
 
 #### Station view
