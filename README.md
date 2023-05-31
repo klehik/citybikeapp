@@ -100,7 +100,7 @@ Repository for Solita Dev Academy pre-assignment. The task was to create a UI an
    npm install
    ```
 
-3. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and create .env file into citybikeapp/frontend. App should work without the key but the map is dispalyed in development mode.
+3. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and create .env file into citybikeapp/frontend. App should work without the key but the map is displayed in development mode.
    ```js
    REACT_APP_MAPS_API_KEY = ''
    ```
