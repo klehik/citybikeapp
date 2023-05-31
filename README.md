@@ -77,18 +77,20 @@ Repository for Solita Dev Academy pre-assignment. The task was to create a UI an
 
 ### Frontend
 
-1. Install dependencies
+1. Install [Node.js](https://nodejs.org/en/download) if not already installed
+
+2. Install dependencies
 
    ```sh
    cd frontend
    npm install
    ```
 
-2. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and create .env file into citybikeapp/frontend
+3. Get a [Google Maps API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and create .env file into citybikeapp/frontend. App should work without the key, but map is dispalyed in development mode.
    ```js
    REACT_APP_MAPS_API_KEY = ''
    ```
-3. Run and go to http://localhost:3000
+4. Run and go to http://localhost:3000
    ```sh
    npm start
    ```
