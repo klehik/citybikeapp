@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     environment:
-      - MONGO_URI=mongodb://mongo:27017/citybikeapp
+      - MONGO_URI=mongodb://host.docker.internal:27017/citybikeapp
     build: .
     ports:
       - '5001:5001'
