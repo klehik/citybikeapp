@@ -3,6 +3,7 @@ const router = express.Router()
 const Trip = require('../models/Trip')
 
 router.get('/', async (req, res) => {
+  // get trips
   const page = parseInt(req.query.page)
   const limit = parseInt(req.query.limit)
   const sort = req.query.sort || null
@@ -11,15 +12,13 @@ router.get('/', async (req, res) => {
   const pageCount = Math.ceil(count / limit)
 
   const trips = await Trip.find({})
-    .skip(limit * page)
+    .skip(limit * (page - 1))
     .limit(limit)
     .sort(sort ? { [`${sort}`]: orderby } : null)
 
-  res.status(200).json({ data: trips, hasMore: page < pageCount - 1 })
+  res
+    .status(200)
+    .json({ data: trips, hasMore: page < pageCount, pageCount: pageCount })
 })
 
-router.get('/:id', async (req, res) => {
-  const trip = await Trip.findById(req.params.id)
-  res.status(200).json(trip)
-})
 module.exports = router

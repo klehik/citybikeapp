@@ -18,8 +18,6 @@ router.get('/', async (req, res) => {
 
   const count = await Station.countDocuments(searchObject)
   const pageCount = Math.ceil(count / limit)
-  console.log(page, pageCount)
-
   const stations = await Station.find(searchObject)
     .limit(limit)
     .skip(limit * (page - 1))
@@ -32,15 +30,12 @@ router.get('/', async (req, res) => {
 router.get('/trips', async (req, res) => {
   // get pick ups and returns by stationID
   const stationID = Number(req.query.stationID)
-  console.log(stationID)
   const tripsStarted = await Trip.collection.countDocuments({
     departureStationID: stationID,
   })
-
   const tripsEnded = await Trip.collection.countDocuments({
     returnStationID: stationID,
   })
-
   res.status(200).json({ tripsStarted: tripsStarted, tripsEnded: tripsEnded })
 })
 module.exports = router
